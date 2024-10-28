@@ -2,7 +2,7 @@ import { FC, Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { ThemeChanger } from '../../../redux/action';
-import store from '../../../redux/store';
+import {store} from '../../../redux/store';
 import logo1 from "../../../assets/images/brand-logos/desktop-logo.png";
 import logo2 from "../../../assets/images/brand-logos/toggle-logo.png";
 import logo3 from "../../../assets/images/brand-logos/desktop-dark.png";

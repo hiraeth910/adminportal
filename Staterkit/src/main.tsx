@@ -10,6 +10,7 @@ import Signup from './firebase/signup.tsx'
 import ScrollToTop from './components/common/scrolltotop/scrolltotop.tsx';
 import Error401 from './container/errors/error401/error401.tsx';
 import Categories from './container/dashboards/sales/categories.tsx';
+import Providers from './pages/provider.tsx';
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -40,6 +41,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <Route
               path={`${import.meta.env.BASE_URL}categories/first_category`}
               element={<Categories/>}
+            />
+            <Route
+              path={`${import.meta.env.BASE_URL}onboarding/provider`}
+              element={<Providers/>}
             />
           </Route>
         </Routes>

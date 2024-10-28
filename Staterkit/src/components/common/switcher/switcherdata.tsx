@@ -1,5 +1,5 @@
 import { ClassAttributes, InputHTMLAttributes, useState } from "react";
-import store from "../../../redux/store";
+import {store} from "../../../redux/store";
 import { MENUITEMS } from "../sidebar/sidemenu";
 import { JSX } from "react/jsx-runtime";
 

@@ -4,9 +4,9 @@ import { Button, Card, Dropdown, InputGroup, ListGroup, Modal, Nav, Offcanvas, T
 import SimpleBar from "simplebar-react";
 import { MENUITEMS } from "../sidebar/sidemenu";
 import DatePicker from "react-datepicker";
-import store from "../../../redux/store";
+import {store} from "../../../redux/store";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { ThemeChanger } from "../../../redux/action";
 //IMAGES
 import desktoplogo from "../../../assets/images/brand-logos/desktop-logo.png";
@@ -37,6 +37,7 @@ import png8 from "../../../assets/images/ecommerce/png/8.png";
 import png11 from "../../../assets/images/ecommerce/png/11.png";
 
 
+const role = (state:any) => state.role;
 interface HeaderProps { }
 
 const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
@@ -106,6 +107,9 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
 		}
 
 	};
+
+      const adminrole = useSelector(role); // Retrieve authToken from Redux state
+
 
 	const [_menuitems, setMenuitems] = useState(MENUITEMS);
 
@@ -849,7 +853,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
 									<div className="d-sm-flex wd-100p">
 										<div className="avatar avatar-sm"><img alt="avatar" className="rounded-circle" src={faces1} /></div>
 										<div className="ms-2 my-auto d-none d-xl-flex">
-											<h6 className=" font-weight-semibold mb-0 fs-13 user-name d-sm-block d-none">Harry Jones</h6>
+											<h6 className=" font-weight-semibold mb-0 fs-13 user-name d-sm-block d-none">{adminrole}</h6>
 										</div>
 									</div>
 								</div>
@@ -873,10 +877,17 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
 									</Link>
 								</Dropdown.Item>
 								<Dropdown.Item as="li" className="border-0">
-									<Link to="#">
-										<i className="fs-13 me-2 bx bx-arrow-to-right"></i>Log Out
-									</Link>
-								</Dropdown.Item>
+  <a
+    href="#"
+    onClick={(e) => {
+      e.preventDefault(); // Prevent the default anchor behavior
+      window.location.replace(`${import.meta.env.BASE_URL}firebase/login`); // Replace current path
+    }}
+  >
+    <i className="fs-13 me-2 bx bx-arrow-to-right"></i>Log Out
+  </a>
+</Dropdown.Item>
+
 							</Dropdown.Menu>
 						</Dropdown>
 

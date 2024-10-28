@@ -18,4 +18,32 @@
 			payload: id
 		});
 	};
+	// authActions.js
+export const setToken = (token:string) => async (dispatch:any) => {
+	dispatch({
+		type: "SET_TOKEN",
+		payload: token,
+	});
+};
+
+export const clearToken = () => async (dispatch:any) => {
+	dispatch({
+		type: "CLEAR_TOKEN",
+		payload: null,
+	});
+};
+export const setRole = (role:string) => async (dispatch:any) => {
+	dispatch({
+		type: "SET_ROLE",
+		payload: role,
+	});
+};
+
+export const clearRole = () => async (dispatch:any) => {
+	dispatch({
+		type: "CLEAR_ROLE",
+		payload: null,
+	});
+};
+
 

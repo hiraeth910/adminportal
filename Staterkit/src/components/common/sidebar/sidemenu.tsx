@@ -28,17 +28,23 @@ export const MENUITEMS = [
 		menutitle: "web apps",
 	},
 	{
-		title: "Nested Menu", icon: icon11, type: "sub",
+		title: "Onboarding", icon: icon11, type: "sub",
 		children: [
 			{ path: `${import.meta.env.BASE_URL}`, type: "empty", active: false, selected: false, dirchange: false, title: "Nested-1" },
 			{
 				title: "Categories", type: "sub", menusub: true, active: false, selected: false, dirchange: false,
 				children: [
-					{ path: `${import.meta.env.BASE_URL}categories/first_category`, type: "link", active: false, selected: false, dirchange: false, title: "Nested-2-1" },
+					{ path: `${import.meta.env.BASE_URL}onboarding/Provider`, type: "link", active: false, selected: false, dirchange: false, title: "Provider" },
 					{ path: `${import.meta.env.BASE_URL}`, type: "empty", active: false, selected: false, dirchange: false, title: "Nested-2-2" },
 
 				],
 			},
+		],
+	},
+	{
+		title: "Onboarding", icon: icon1,  type: "sub", active: false, selected: false, dirchange: false,
+		children: [
+			{ path: `${import.meta.env.BASE_URL}onboarding/provider`, type: "link", active: false, selected: false, dirchange: false, title: "Provider", },
 		],
 	},
 ];
