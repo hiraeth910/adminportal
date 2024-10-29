@@ -11,6 +11,7 @@ import ScrollToTop from './components/common/scrolltotop/scrolltotop.tsx';
 import Error401 from './container/errors/error401/error401.tsx';
 import Categories from './container/dashboards/sales/categories.tsx';
 import Providers from './pages/provider.tsx';
+import Products from './pages/product.tsx';
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -45,6 +46,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <Route
               path={`${import.meta.env.BASE_URL}onboarding/provider`}
               element={<Providers/>}
+            />
+            <Route
+              path={`${import.meta.env.BASE_URL}product/requests`}
+              element={<Products/>}
             />
           </Route>
         </Routes>

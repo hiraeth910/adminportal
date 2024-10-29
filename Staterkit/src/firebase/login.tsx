@@ -54,6 +54,7 @@ const Home = () => {
 
 			if(t){
 			const decryptedToken = CryptoJS.AES.decrypt(t, 'lamjodaka').toString(CryptoJS.enc.Utf8);
+			console.log(decryptedToken)
 const decoded = jwtDecode(decryptedToken);
 	        if (decoded && typeof decoded === 'object' && 'role' in decoded) {
     const role = decoded.role as string;

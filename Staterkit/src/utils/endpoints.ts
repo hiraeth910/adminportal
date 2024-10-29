@@ -1,5 +1,5 @@
 export const uri = {
-  baseurl: "http://13.201.168.52",
+  baseurl: "http://13.233.142.100",
   // baseurl: "http://192.168.31.198",
 
 }
@@ -11,10 +11,10 @@ export const endpoints = {
   login:'/api/auth/admin/login',
   getprovider:'/api/admin/get/verifyrequests',
   updateprovider:'/api/admin/update/providerstatus',
-  getproduct:'/get/product/requests',
-  updateproduct:'/create/product',
-  getwithdrawl:'/get/withdrawls',
-  updatewithdrawl:'/withdrawlupdate',
+  getproduct:'/api/admin/get/product/requests',
+  updateproduct:'/api/admin/create/product',
+  getwithdrawl:'/api/admin/get/withdrawls',
+  updatewithdrawl:'/api/admin/withdrawlupdate',
   getuserbalance:''
   
 }

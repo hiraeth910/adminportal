@@ -4,6 +4,7 @@ import { Category} from "../models/category"
 import { apiClient } from "./api"
 import CryptoJS from 'crypto-js';
 import { ProviderDetails, ProviderDetailsResponse } from "../models/provider";
+import { NewProduct } from "../models/product";
 
 export const getCategories = async (_orgId: number): Promise<Category[]> => {
   try {
@@ -95,3 +96,77 @@ export const changeProviderStatus = async (id: number, status: boolean, authToke
     }
 }
 
+interface FetchProductsParams {
+    authToken: string;
+    count_perpage?: number; // Optional parameter for items per page
+    last_seen_id?: number;   // Optional parameter for pagination
+    top_id?: number;         // Optional parameter for pagination
+}
+
+export const fetchProducts = async ({
+    authToken,
+    count_perpage,
+    last_seen_id,
+    top_id,
+}: FetchProductsParams): Promise<NewProduct[]> => {
+    try {
+        // Construct query string with only non-undefined parameters, excluding authToken
+        const params: Record<string, string> = {};
+        if (count_perpage) params.count_perpage = count_perpage.toString();
+        if (last_seen_id) params.last_seen_id = last_seen_id.toString();
+        if (top_id) params.top_id = top_id.toString();
+        
+        const queryString = new URLSearchParams(params).toString();
+        
+        // Fetch data without including the auth token in query params
+        const response = await apiClient.get(`${endpoints.getproduct}?${queryString}`, {
+            headers: {
+                'Authorization': `Bearer ${authToken}`, // Add auth header only
+            },
+            withCredentials: true, // Enables cookies and credentials to be sent
+        });
+
+        // Check if the response is successful
+        if (response.status !== 200) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = response.data;
+
+        // Map the data to NewProduct interface
+        return data.map((item: any) => ({
+            ...item,
+            createdon: new Date(item.createdon), // Convert to Date
+        }));
+    } catch (error) {
+        // Handle different types of errors appropriately
+        if (error instanceof Error) {
+            throw new Error(`Failed to fetch products: ${error.message}`);
+        } else {
+            console.error(`Unknown error: ${error}`);
+            throw new Error('An unknown error occurred while fetching products.');
+        }
+    }
+};
+export const updateProduct = async (authToken: string, load: any) => {
+  try {
+    const response = await apiClient.post(
+      endpoints.updateproduct,
+      load, // `load` should be the second argument, which is the data being sent
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`, // Add auth header here
+        },
+        withCredentials: true, // Enables cookies and credentials to be sent
+      }
+    );
+
+    if (response.status >= 200 && response.status < 400) {
+      return "success";
+    } else {
+      return "fail";
+    }
+  } catch (e) {
+    throw e;
+  }
+};
