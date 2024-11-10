@@ -5,7 +5,9 @@ import { apiClient } from "./api"
 import CryptoJS from 'crypto-js';
 import { ProviderDetails, ProviderDetailsResponse } from "../models/provider";
 import { NewProduct } from "../models/product";
-
+import { WithdrawalRecord, WithdrawalResponse } from "../models/withdrawl";
+import header from "../components/common/header/header";
+import axios from 'axios';
 export const getCategories = async (_orgId: number): Promise<Category[]> => {
   try {
     const response = await apiClient.get(
@@ -55,7 +57,6 @@ export const fetchProviderDetails = async (
             params.append('top_id', top_id.toString());
         }
         params.append('perpage', perpage.toString());
-console.log(authToken,"tokennnnnnnnnnn")
   const response = await apiClient.get(endpoints.getprovider, {
     headers: {
         "Authorization": `Bearer ${authToken}`,
@@ -76,10 +77,10 @@ console.log(authToken,"tokennnnnnnnnnn")
     }
 };
 
-export const changeProviderStatus = async (id: number, status: boolean, authToken: string) => {
+export const changeProviderStatus = async (id: number, status: boolean,provId:number, authToken: string) => {
     try {
         // Prepare the data to be sent in the request body
-        const data = { id: id, status: status };
+        const data = { id: id, status: status ,p_id:provId};
 
         // Make the POST request
         const response = await apiClient.post(endpoints.updateprovider, data, {
@@ -112,7 +113,7 @@ export const fetchProducts = async ({
     try {
         // Construct query string with only non-undefined parameters, excluding authToken
         const params: Record<string, string> = {};
-        if (count_perpage) params.count_perpage = count_perpage.toString();
+         params.count_perpage ="20";
         if (last_seen_id) params.last_seen_id = last_seen_id.toString();
         if (top_id) params.top_id = top_id.toString();
         
@@ -132,12 +133,8 @@ export const fetchProducts = async ({
         }
 
         const data = response.data;
-
-        // Map the data to NewProduct interface
-        return data.map((item: any) => ({
-            ...item,
-            createdon: new Date(item.createdon), // Convert to Date
-        }));
+        console.log(data)
+        return response.data;
     } catch (error) {
         // Handle different types of errors appropriately
         if (error instanceof Error) {
@@ -168,5 +165,114 @@ export const updateProduct = async (authToken: string, load: any) => {
     }
   } catch (e) {
     throw e;
+  }
+};
+
+export const fetchPendingWithdrawals = async (
+    authToken: string,
+    last_seen_id?: number,
+    top_id?: number,
+    perpage: number = 10
+): Promise<WithdrawalResponse> => {
+    try {
+        // Create query parameters based on input
+        const params = new URLSearchParams();
+        if (last_seen_id !== undefined) {
+            params.append('last_seen_id', last_seen_id.toString());
+        }
+        if (top_id !== undefined) {
+            params.append('top_id', top_id.toString());
+        }
+        params.append('perpage', perpage.toString());
+
+        // Make the GET request
+        const response = await apiClient.get(endpoints.getwithdrawl, {
+            headers: {
+                "Authorization": `Bearer ${authToken}`,
+            },
+            params
+        });
+
+        // Handle empty or error response scenarios
+        if (!response.data || !Array.isArray(response.data) || response.data.length === 0) {
+            return { message: "No pending withdrawals found." };
+        }
+
+        // Calculate last_seen_id and top_id from response data
+        const lastSeenId = response.data[response.data.length - 1].withdrawl_id;
+        const topId = response.data[0].withdrawl_id;
+
+        return {
+            data: response.data as WithdrawalRecord[],
+            last_seen_id: lastSeenId,
+            top_id: topId,
+        };
+    } catch (error) {
+        console.error('Error fetching pending withdrawals:', error);
+        return { message: "Error fetching pending withdrawals." };
+    }
+};
+
+export const getBalance = async (provid: number, authToken: string) => {
+  const response = await apiClient.get(`${endpoints.getuserbalance}?id=${provid}`
+    ,{
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          'Content-Type': 'application/json',
+        },
+      }
+  );
+  return response.data.balance;
+};
+export const updateBalance = async (authToken: string, load: any) => {
+  try {
+    const response = await apiClient.post(
+      endpoints.updatewithdrawl,
+      load,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    // Handle response based on status code
+    if (response.status === 200) {
+      console.log(response.data.message); // Success message
+      return { success: true, message: response.data.message };
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      const status = error.response.status;
+      const errorMessage = error.response.data.message || "An error occurred";
+
+      switch (status) {
+        case 400:
+          console.error("Bad request:", errorMessage);
+          return { success: false, message: "Bad request: " + errorMessage };
+        case 401:
+          console.error("Unauthorized:", errorMessage);
+          return { success: false, message: "Unauthorized: " + errorMessage };
+        case 403:
+          if (errorMessage === "Forbidden: Token has expired") {
+            console.warn("Token expired. Redirecting to login...");
+            window.location.replace(`${import.meta.env.BASE_URL}firebase/login`);
+          } else {
+            console.error("Access denied:", errorMessage);
+            return { success: false, message: "Access denied: " + errorMessage };
+          }
+          break;
+        case 500:
+          console.error("Server error:", errorMessage);
+          return { success: false, message: "Server error: " + errorMessage };
+        default:
+          console.error("Unhandled error:", errorMessage);
+          return { success: false, message: "Error: " + errorMessage };
+      }
+    } else {
+      console.error("Network or unexpected error:")
+      return { success: false, message: "Network or unexpected error: " };
+    }
   }
 };

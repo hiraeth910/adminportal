@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { Provider } from 'react-redux'
-import store from '../redux/store'
+import {store} from '../redux/store'
 import { Outlet } from 'react-router-dom'
 import Landingswitcher from '../components/common/switcher/landingswitcher'
 

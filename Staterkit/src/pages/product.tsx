@@ -23,6 +23,7 @@ const Products: FC<ProductsProps> = () => {
   const [toastVariant, setToastVariant] = useState<"success" | "danger">("success");
   const [inputOne, setInputOne] = useState("");
   const [inputTwo, setInputTwo] = useState("");
+  const [inputThree,setInputThree] = useState("");
   const [isActionLoading, setIsActionLoading] = useState(false);
 
   useEffect(() => {
@@ -69,6 +70,7 @@ const Products: FC<ProductsProps> = () => {
       if (response === "success") {
         setToastMessage("Product rejection successful!");
         setToastVariant("success");
+        setProducts(products.filter(p=>p.id!=currentProduct?.id))
       } else {
         throw new Error("Failed");
       }
@@ -81,7 +83,11 @@ const Products: FC<ProductsProps> = () => {
       setShowModal(false);
     }
   };
-
+  useEffect(()=>{
+    if(products.length===0){
+      fetchProducts(authToken)
+    }
+  },[products])
   const handleCreateProduct = async () => {
     if (inputOne.length === 14 && inputTwo) {
       setIsActionLoading(true);
@@ -92,10 +98,13 @@ const Products: FC<ProductsProps> = () => {
           acc: true,
           product: inputOne,
           bot: inputTwo,
+          joiningLink : inputThree
         });
         if (response === "success") {
           setToastMessage("Product creation successful!");
           setToastVariant("success");
+                  setProducts(products.filter(p=>p.id!=currentProduct?.id))
+          
         } else {
           throw new Error("Failed");
         }
@@ -150,7 +159,7 @@ const Products: FC<ProductsProps> = () => {
                     <tr key={product.id} className="border-bottom">
                       <td>{product.channel_name}</td>
                       <td>{product.displaytext}</td>
-                      <td>{product.createdon.toLocaleDateString()}</td>
+                      <td>{product.createdon}</td>
                       <td>{product.ppu}</td>
                       <td>
                         {product.image ? (
@@ -218,9 +227,18 @@ const Products: FC<ProductsProps> = () => {
                 <Form.Control
                   as="textarea"
                   rows={3}
-                  placeholder="Description"
+                  placeholder="Bot code"
                   value={inputTwo}
                   onChange={(e) => setInputTwo(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group className="mt-2">
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  placeholder="Joining link"
+                  value={inputThree}
+                  onChange={(e) => setInputThree(e.target.value)}
                 />
               </Form.Group>
             </>

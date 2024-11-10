@@ -12,6 +12,7 @@ import Error401 from './container/errors/error401/error401.tsx';
 import Categories from './container/dashboards/sales/categories.tsx';
 import Providers from './pages/provider.tsx';
 import Products from './pages/product.tsx';
+import Withdrawals from './pages/withdrawl.tsx';
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -48,9 +49,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               element={<Providers/>}
             />
             <Route
-              path={`${import.meta.env.BASE_URL}product/requests`}
+              path={`${import.meta.env.BASE_URL}onboarding/prducts`}
               element={<Products/>}
+              
             />
+            <Route
+              path={`${import.meta.env.BASE_URL}user/withdrawl`}
+              element={<Withdrawals/>}/>
           </Route>
         </Routes>
       </React.Suspense>

@@ -1,6 +1,6 @@
 export const uri = {
-  baseurl: "http://13.233.142.100",
-  // baseurl: "http://192.168.31.198",
+  baseurl: "http://13.201.168.52",
+  // baseurl: "http://localhost:80",
 
 }
 
@@ -15,6 +15,6 @@ export const endpoints = {
   updateproduct:'/api/admin/create/product',
   getwithdrawl:'/api/admin/get/withdrawls',
   updatewithdrawl:'/api/admin/withdrawlupdate',
-  getuserbalance:''
+  getuserbalance:'/api/admin/get/balance'
   
 }

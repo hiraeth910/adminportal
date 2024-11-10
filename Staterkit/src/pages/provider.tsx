@@ -69,7 +69,7 @@ const Providers: FC<ProvidersProps> = () => {
     setIsButtonLoading(true);
     try {
       const requestId = currentProvider.request_id || 1;
-      const response = await changeProviderStatus(requestId, status, authToken);
+      const response = await changeProviderStatus(requestId, status,currentProvider.provider_id, authToken);
       console.log(response)
       if (response=='success') {
         setToastMessage("Provider status update successful");
