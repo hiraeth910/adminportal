@@ -1,7 +1,6 @@
 
 import React, { FC, Fragment, useEffect, useRef, useState } from "react";
 import { Button, Card, Dropdown, InputGroup, ListGroup, Modal, Nav, Offcanvas, Tab } from "react-bootstrap";
-import SimpleBar from "simplebar-react";
 import { MENUITEMS } from "../sidebar/sidemenu";
 import DatePicker from "react-datepicker";
 import {store} from "../../../redux/store";
@@ -26,15 +25,10 @@ import faces16 from "../../../assets/images/faces/16.jpg";
 import faces1 from "../../../assets/images/faces/1.jpg";
 import faces9 from "../../../assets/images/faces/9.jpg";
 import faces6 from "../../../assets/images/faces/6.jpg";
-import faces2 from "../../../assets/images/faces/2.jpg";
-import faces8 from "../../../assets/images/faces/8.jpg";
+
 import faces14 from "../../../assets/images/faces/14.jpg";
 import faces11 from "../../../assets/images/faces/11.jpg";
-import png1 from "../../../assets/images/ecommerce/png/1.png";
-import png15 from "../../../assets/images/ecommerce/png/15.png";
-import png40 from "../../../assets/images/ecommerce/png/40.png";
-import png8 from "../../../assets/images/ecommerce/png/8.png";
-import png11 from "../../../assets/images/ecommerce/png/11.png";
+
 
 
 const role = (state:any) => state.role;
