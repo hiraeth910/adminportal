@@ -5,7 +5,6 @@ import Switcher from "../components/common/switcher/switcher";
 import Sidebar from "../components/common/sidebar/sidebar";
 import Pageheader from "../components/pageheader/pageheader";
 import { Outlet } from "react-router-dom";
-import Footer from "../components/common/footer/footer";
 import Tabtotop from "../components/common/tab-to-tap/tabtotap";
 import Home from "../firebase/login";
 

@@ -46,6 +46,7 @@ const Withdrawals: FC<WithdrawalsProps> = () => {
       setIsLoading(false);
     }
   };
+  console.log(prevBalance)
   const fetchoBalance= async(provid:number)=>{
     const bal =  await getBalance(provid,authToken)
     setObalance(bal)

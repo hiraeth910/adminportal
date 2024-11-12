@@ -6,7 +6,6 @@ import CryptoJS from 'crypto-js';
 import { ProviderDetails, ProviderDetailsResponse } from "../models/provider";
 import { NewProduct } from "../models/product";
 import { WithdrawalRecord, WithdrawalResponse } from "../models/withdrawl";
-import header from "../components/common/header/header";
 import axios from 'axios';
 export const getCategories = async (_orgId: number): Promise<Category[]> => {
   try {
@@ -106,7 +105,6 @@ interface FetchProductsParams {
 
 export const fetchProducts = async ({
     authToken,
-    count_perpage,
     last_seen_id,
     top_id,
 }: FetchProductsParams): Promise<NewProduct[]> => {

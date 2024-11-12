@@ -12,8 +12,7 @@ interface ProductsProps {}
 const Products: FC<ProductsProps> = () => {
   const authToken = useSelector(selectAuthToken);
   const [products, setProducts] = useState<NewProduct[]>([]);
-  const [lastSeenId, setLastSeenId] = useState<number | undefined>();
-  const [topId, setTopId] = useState<number | undefined>();
+
   const [isLoading, setIsLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [showConfirmAlert, setShowConfirmAlert] = useState(false);
@@ -32,8 +31,7 @@ const Products: FC<ProductsProps> = () => {
       try {
         const fetchedProducts = await fetchProducts({
           authToken,
-          last_seen_id: lastSeenId,
-          top_id: topId,
+         
         });
         setProducts(fetchedProducts);
       } catch (error) {
@@ -47,7 +45,7 @@ const Products: FC<ProductsProps> = () => {
     };
 
     if (authToken) fetchProductData();
-  }, [authToken, lastSeenId, topId]);
+  }, [authToken]);
 
   const handleCreate = (product: NewProduct) => {
     setCurrentProduct(product);
