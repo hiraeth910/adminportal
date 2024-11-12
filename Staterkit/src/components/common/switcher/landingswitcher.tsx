@@ -5,7 +5,7 @@ import { ThemeChanger } from "../../../redux/action";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
-import store from "../../../redux/store";
+import {store} from "../../../redux/store";
 
 function Landingswitcher({ local_varaiable, ThemeChanger }:any) {
 

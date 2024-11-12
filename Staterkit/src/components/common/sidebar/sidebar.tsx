@@ -1,5 +1,5 @@
 import { FC, Fragment, useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { ThemeChanger } from '../../../redux/action';
 import {store} from '../../../redux/store';
@@ -8,12 +8,16 @@ import logo2 from "../../../assets/images/brand-logos/toggle-logo.png";
 import logo3 from "../../../assets/images/brand-logos/desktop-dark.png";
 import logo4 from "../../../assets/images/brand-logos/toggle-dark.png";
 import SimpleBar from 'simplebar-react';
-import { MENUITEMS } from './sidemenu';
 import Menuloop from './menuloop';
+import { getMenuItemsByRole } from './sidemenu';
+const role = (state:any) => state.role;
 
 interface SidebarProps { }
 
 const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
+  const adminrole = useSelector(role); 
+  const MENUITEMS = getMenuItemsByRole(adminrole)
+  console.log(MENUITEMS)
   const [menuitems, setMenuitems] = useState<any>(MENUITEMS);
 
   function closeMenuFn() {

@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { Provider } from "react-redux";
-import store from "../redux/store";
+import {store} from "../redux/store";
 import Header from "../components/common/header/header";
 import Switcher from "../components/common/switcher/switcher";
 import Sidebar from "../components/common/sidebar/sidebar";
