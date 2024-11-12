@@ -5,7 +5,6 @@ import App from './pages/App.tsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Auth from './firebase/auth.tsx'
 import Login from './firebase/login.tsx'
-import Signup from './firebase/signup.tsx'
 import ScrollToTop from './components/common/scrolltotop/scrolltotop.tsx';
 import Error401 from './container/errors/error401/error401.tsx';
 import Providers from './pages/provider.tsx';
@@ -18,38 +17,35 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <ScrollToTop />
       <React.Suspense>
         <Routes>
-          <Route path={`${import.meta.env.BASE_URL}`} element={<Auth />}>
+          <Route path={'/'} element={<Auth />}>
             <Route index element={<Login />} />
             <Route
-              path={`${import.meta.env.BASE_URL}firebase/login`}
+              path={'login'}
               element={<Login />}
             />
-            <Route
-              path={`${import.meta.env.BASE_URL}firebase/signup`}
-              element={<Signup />}
-            />
+          
           </Route>
-          <Route path={`${import.meta.env.BASE_URL}`} element={<App />}>
+          <Route path={`/`} element={<App />}>
             <Route
-              path={`${import.meta.env.BASE_URL}dashboards/sales`}
-              element={<Withdrawals />}
+              path={`/dashboards/sales`}
+              element={<Products />}
             />
             <Route
-              path={`${import.meta.env.BASE_URL}errors/error401`}
+              path={`/errors/error401`}
               element={<Error401 />}
             />
            
             <Route
-              path={`${import.meta.env.BASE_URL}onboarding/provider`}
+              path={`/onboarding/provider`}
               element={<Providers/>}
             />
             <Route
-              path={`${import.meta.env.BASE_URL}onboarding/prducts`}
+              path={`/onboarding/prducts`}
               element={<Products/>}
               
             />
             <Route
-              path={`${import.meta.env.BASE_URL}user/withdrawl`}
+              path={`/user/withdrawl`}
               element={<Withdrawals/>}/>
           </Route>
         </Routes>

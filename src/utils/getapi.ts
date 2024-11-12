@@ -1,24 +1,12 @@
 const SECRET_KEY = 'lamjodaka';
 import { endpoints } from "./endpoints"
-import { Category} from "../models/category"
 import { apiClient } from "./api"
 import CryptoJS from 'crypto-js';
 import { ProviderDetails, ProviderDetailsResponse } from "../models/provider";
 import { NewProduct } from "../models/product";
 import { WithdrawalRecord, WithdrawalResponse } from "../models/withdrawl";
 import axios from 'axios';
-export const getCategories = async (_orgId: number): Promise<Category[]> => {
-  try {
-    const response = await apiClient.get(
-      `${endpoints.getCategoryById}${_orgId}`
-    )
-    const categories: Category[] = response.data as Category[]
-    return categories // Return the list of Category objects
-  } catch (error) {
-    console.error("Error fetching categories:", error)
-    throw error // Re-throw the error for proper handling
-  }
-}
+
 export const login = async (load: { userid: string, password: string }): Promise<string | undefined> => {
   try {
     // Encrypt the password
