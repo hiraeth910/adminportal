@@ -1,5 +1,5 @@
 export const uri = {
-  baseurl: "https://server.telemoni.in",
+  baseurl: "http://server.telemoni.in",
   // baseurl: "http://localhost:80",
 
 }
