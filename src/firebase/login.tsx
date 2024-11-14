@@ -28,7 +28,7 @@ const Home = () => {
 		setError("");
 	};
 	const routeChange = () => {
-  const path = `${import.meta.env.BASE_URL}dashboards/sales/`;
+  const path = `dashboards/sales/`;
   
   // Clear the entire history stack and navigate to the new path
   window.location.replace(path);

@@ -14,9 +14,9 @@ export const MENUITEMS = [
 	{
 		title: "Onboarding", icon: icon1,  type: "sub", active: true, selected: true, dirchange: false,
 		children: [
-			{ path: `${import.meta.env.BASE_URL}onboarding/provider`, type: "link", active: false, selected: false, dirchange: false, title: "Provider", },
-			{ path: `${import.meta.env.BASE_URL}onboarding/prducts`, type: "link", active: false, selected: false, dirchange: false, title: "Products", },
-			{ path: `${import.meta.env.BASE_URL}user/withdrawl`, type: "link", active: false, selected: false, dirchange: false, title: "Withdrawals", },
+			{ path: `onboarding/provider`, type: "link", active: false, selected: false, dirchange: false, title: "Provider", },
+			{ path: `onboarding/prducts`, type: "link", active: false, selected: false, dirchange: false, title: "Products", },
+			{ path: `user/withdrawl`, type: "link", active: false, selected: false, dirchange: false, title: "Withdrawals", },
 
 		],
 	},
