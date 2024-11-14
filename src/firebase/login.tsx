@@ -28,7 +28,7 @@ const Home = () => {
 		setError("");
 	};
 	const routeChange = () => {
-  const path = `dashboards/sales/`;
+  const path = `/onboarding/prducts`;
   
   // Clear the entire history stack and navigate to the new path
   window.location.replace(path);

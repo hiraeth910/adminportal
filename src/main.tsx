@@ -26,10 +26,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           
           </Route>
           <Route path={`/`} element={<App />}>
-            <Route
-              path={`/dashboards/sales`}
-              element={<Products />}
-            />
+           
             <Route
               path={`/errors/error401`}
               element={<Error401 />}
